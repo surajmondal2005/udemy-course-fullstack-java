@@ -11,6 +11,7 @@ export default function SearchBox({ label, placeholder, value, handleSearch }) {
         onChange={(event) => handleSearch(event.target.value)}
         className="px-4 py-2 text-base border rounded-md transition border-primary focus:ring focus:ring-dark focus:outline-none text-gray-800"
       />
+      
     </div>
   );
 }

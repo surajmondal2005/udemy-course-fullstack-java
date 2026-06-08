@@ -11,7 +11,7 @@ export default function ProductListings({ products }) {
   }
   const filteredProducts = products.filter(
     (product)=>{
-      product.name.toLowerCase().includes(searchText.toLowerCase())
+      return product.name.toLowerCase().includes(searchText.toLowerCase())
     }
 
   )
@@ -27,8 +27,8 @@ export default function ProductListings({ products }) {
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-6 py-12">
-        {products.length > 0 ? (
-          products.map((product) => (
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
             <ProductCard key={product.productId} product={product} />
           ))
         ) : (

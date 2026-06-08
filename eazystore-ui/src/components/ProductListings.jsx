@@ -9,18 +9,21 @@ export default function ProductListings({ products }) {
     setSearchText(inputSearch);
 
   }
+  const filteredProducts = products.filter(
+    (product)=>{
+      product.name.toLowerCase().includes(searchText.toLowerCase())
+    }
+
+  )
 
   return (
-
     <div className="max-w-[1152px] mx-auto">
       <div>
-          
         <SearchBox
           label="Search"
           placeholder="Search Products"
-          value = {searchText}
-          handleSearch={handleSearchChange }
-        
+          value={searchText}
+          handleSearch={handleSearchChange}
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-6 py-12">

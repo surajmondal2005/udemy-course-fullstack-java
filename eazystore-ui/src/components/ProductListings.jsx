@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useMemo} from "react";
 import React from "react";
 import ProductCard from "./ProductCard";
 import SearchBox from "./SearchBox";
@@ -14,15 +14,19 @@ export default function ProductListings({ products }) {
   function handleSortChange(sortType) {
     setSelectedSort(sortType);
   }
-  const filteredProducts = products.filter((product) => {
-    return product.name.toLowerCase().includes(searchText.toLowerCase());
-  });
+  const filteredAndSortedProducts = useMemo(() => {
+    const filteredProducts = products.filter((product) => {
+      return product.name.toLowerCase().includes(searchText.toLowerCase());
+    });
 
-  const sortedProducts = filteredProducts.slice().sort((a, b) => {
-    if (selectedSort === "Price Low to High") return a.price - b.price;
-    if (selectedSort === "Price High to Low") return b.price - a.price;
-    else return b.popularity - a.popularity;
-  });
+    const sortedProducts = filteredProducts.slice().sort((a, b) => {
+      if (selectedSort === "Price Low to High") return a.price - b.price;
+      if (selectedSort === "Price High to Low") return b.price - a.price;
+      else return b.popularity - a.popularity;
+      
+    });
+  return sortedProducts;}, [products, searchText, selectedSort]);
+  
 
   return (
     <div className="max-w-[1152px] mx-auto">
@@ -41,8 +45,8 @@ export default function ProductListings({ products }) {
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-6 py-12">
-        {sortedProducts.length > 0 ? (
-          sortedProducts.map((product) => (
+        {filteredAndSortedProducts.length > 0 ? (
+          filteredAndSortedProducts.map((product) => (
             <ProductCard key={product.productId} product={product} />
           ))
         ) : (

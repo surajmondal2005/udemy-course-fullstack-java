@@ -29,7 +29,7 @@ export default function ProductListings({ products }) {
   
 
   return (
-    <div className="max-w-[1152px] mx-auto">
+    <div className="max-w-[1152px] mx-auto ">
       <div>
         <SearchBox
           label="Search"

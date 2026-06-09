@@ -31,7 +31,7 @@ export default function Home() {
     }
   };
 
-    return<div className="home-container">
+    return<div className="home-container ">
         
             <PageHeading title="Explore Eazy Stickers">
                 Add a touch of creativity to your space with ou wide range of fun and

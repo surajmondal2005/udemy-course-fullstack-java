@@ -1,7 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingBasket, faTags } from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import {
+  faShoppingBasket,
+  faTags,
+  faSun,
+  faMoon,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
+  const [theme, setTheme] = useState("light");
+  useEffect(() => {
+    console.log("Theme changed", theme);
+  }, [theme]);
+  function toggleTheme() {
+    setTheme(theme === "light" ? "dark" : "light");
+  }
+  console.log(theme);
   const navLinkClass =
     "text-center text-lg font-primary font-semibold text-primary py-2";
   return (
@@ -12,6 +26,10 @@ export default function Header() {
           <span className="font-bold">Eazy Stickers</span>
         </a>
         <nav className="flex items-center py-2 z-10">
+          <button onClick={toggleTheme}>
+            {" "}
+            <FontAwesomeIcon icon={theme === "dark" ? faMoon : faSun} />
+          </button>
           <ul className="flex space-x-6">
             <li>
               <a href="/" className={navLinkClass}>

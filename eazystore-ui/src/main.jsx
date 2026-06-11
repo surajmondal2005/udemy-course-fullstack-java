@@ -9,6 +9,8 @@ import Contact from "./components/Contact";
 import Login from "./components/Login";
 import Cart from "./components/Cart";
 import ErrorPage from "./components/ErrorPage.jsx";
+import { productsLoader } from "./components/Home.jsx";
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -17,10 +19,10 @@ import {
 } from "react-router-dom";
 const routeDefinitions = createRoutesFromElements(
   <Route path="/" element={<App />} errorElement={<ErrorPage />}>
-    <Route index element={<Home />}  />
-    <Route path="/home" element={<Home />}  />
+    <Route index element={<Home />} loader={productsLoader} />
+    <Route path="/home" element={<Home />} loader={productsLoader} />
     <Route path="/about" element={<About />} />
-    <Route path="/contact" element={<Contact />}  />
+    <Route path="/contact" element={<Contact />} />
     <Route path="/login" element={<Login />} />
     <Route path="/cart" element={<Cart />} />
   </Route>,

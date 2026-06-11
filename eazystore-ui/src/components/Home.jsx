@@ -1,9 +1,8 @@
 import PageHeading from "./PageHeading";
 import ProductListings from "./ProductListings";
 import apiClient from "../api/apiClient";
-import {useState,useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
-
 
 // Hooks
 export default function Home() {
@@ -33,29 +32,25 @@ export default function Home() {
   //   }
   // };
 
-    return<div className="home-container ">
-        
-            <PageHeading title="Explore Eazy Stickers">
-                Add a touch of creativity to your space with ou wide range of fun and
-                unique stickers.Perfect for any occassion.
+  return (
+    <div className="home-container ">
+      <PageHeading title="Explore Eazy Stickers">
+        Add a touch of creativity to your space with ou wide range of fun and
+        unique stickers.Perfect for any occassion.
+      </PageHeading>
 
-            </PageHeading>
-
-            <ProductListings products={products}/>
-        
+      <ProductListings products={products} />
     </div>
-
-
-
-
+  );
 }
-export async function productsLoader(){
+export async function productsLoader() {
   try {
-      
-      const response = await apiClient.get("/products"); // Axios GET Request
-      return response.data
-    } catch (error) {
-      
-    } 
-
+    const response = await apiClient.get("/products"); // Axios GET Request
+    return response.data;
+  } catch (error) {
+    throw new Response(
+      error.message || "Failed to fetch products. Please try again.",
+      { status: error.status || 500 },
+    );
+  }
 }

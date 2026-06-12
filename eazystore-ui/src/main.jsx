@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import Cart from "./components/Cart";
 import ErrorPage from "./components/ErrorPage.jsx";
 import { productsLoader } from "./components/Home.jsx";
+import { contactAction } from "./components/Contact";
 
 import {
   createBrowserRouter,
@@ -22,7 +23,7 @@ const routeDefinitions = createRoutesFromElements(
     <Route index element={<Home />} loader={productsLoader} />
     <Route path="/home" element={<Home />} loader={productsLoader} />
     <Route path="/about" element={<About />} />
-    <Route path="/contact" element={<Contact />} />
+    <Route path="/contact" element={<Contact />} action={contactAction} />
     <Route path="/login" element={<Login />} />
     <Route path="/cart" element={<Cart />} />
   </Route>,

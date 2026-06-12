@@ -2,11 +2,16 @@ import PageHeading from "./PageHeading";
 import ProductListings from "./ProductListings";
 import apiClient from "../api/apiClient";
 import { useState, useEffect } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useLocation } from "react-router-dom";
 
 // Hooks
 export default function Home() {
   const products = useLoaderData();
+  const location = useLocation();
+  const username = location.state;
+  const path = location.pathname;
+  console.log(path);
+  console.log(username);
   // const [products, setProducts] = useState([]);
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState(null);
@@ -33,9 +38,9 @@ export default function Home() {
   // };
 
   return (
-    <div className="home-container ">
+    <div className="home-container  ">
       <PageHeading title="Explore Eazy Stickers">
-        Add a touch of creativity to your space with ou wide range of fun and
+        Add a touch of creativity to your space with a wide range of fun and
         unique stickers.Perfect for any occassion.
       </PageHeading>
 

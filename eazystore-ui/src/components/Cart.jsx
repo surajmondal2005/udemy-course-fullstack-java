@@ -9,6 +9,9 @@ export default function Cart() {
 
   const handleClick = () => {
     navigation("/home", { state: { username: "madan" } });
+    /*navigation("/home", { replace: true });*/
+
+    /*navigation(-1);*/
   };
 
   return (

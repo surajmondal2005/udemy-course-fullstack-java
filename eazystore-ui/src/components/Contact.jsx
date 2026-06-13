@@ -1,17 +1,44 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import PageTitle from "./PageTitle";
 import apiClient from "../api/apiClient";
-import { Form, useActionData } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import {
+  Form,
+  useActionData,
+  useNavigation,
+  useSubmit,
+} from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Contact() {
   const actionData = useActionData();
   const formRef = useRef(null);
+  const navigation = useNavigation();
+  const submit = useSubmit();
+
+  const isSubmitting = navigation.state === "submitting";
+
   useEffect(() => {
     if (actionData?.success) {
       formRef.current?.reset();
+      toast.success("Your message has been submitted successfully!");
     }
   }, [actionData]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const userConfirmed = window.confirm(
+      "Are you sure you want to submit the form?",
+    );
+
+    if (userConfirmed) {
+      const formData = new FormData(formRef.current);
+      submit(formData, { method: "post" });
+    } else {
+      toast.info("Form submission cancelled.");
+    }
+  };
+
   const labelStyle =
     "block text-lg font-semibold text-primary dark:text-light mb-2";
 
@@ -28,8 +55,9 @@ export default function Contact() {
       </p>
 
       <Form
-        method="POST"
+        method="post"
         ref={formRef}
+        onSubmit={handleSubmit}
         className="space-y-6 max-w-[768px] mx-auto"
       >
         <div>
@@ -93,15 +121,16 @@ export default function Contact() {
             required
             minLength={5}
             maxLength={500}
-          ></textarea>
+          />
         </div>
 
         <div className="text-center">
           <button
             type="submit"
-            className="px-6 py-2 text-white dark:text-black text-xl rounded-md transition duration-200 bg-primary dark:bg-light hover:bg-dark dark:hover:bg-lighter"
+            disabled={isSubmitting}
+            className="px-6 py-2 text-white dark:text-black text-xl rounded-md transition duration-200 bg-primary dark:bg-light hover:bg-dark dark:hover:bg-lighter disabled:opacity-50"
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </Form>
@@ -121,7 +150,12 @@ export async function contactAction({ request }) {
 
   try {
     await apiClient.post("/contacts", contactData);
-    return { success: true };
+
+    return {
+      success: true,
+    };
+
+    // return redirect("/home");
   } catch (error) {
     throw new Response(
       error.response?.data?.message ||

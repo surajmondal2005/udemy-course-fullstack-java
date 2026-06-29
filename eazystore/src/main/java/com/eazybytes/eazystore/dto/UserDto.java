@@ -2,16 +2,13 @@ package com.eazybytes.eazystore.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter
-@Setter
-
-public class ContactRequestDto {
-
-    private long productId;
+import java.math.BigDecimal;
+import java.time.Instant;
+@Getter @Setter @ToString
+public class UserDto {
     private String name;
     private String email;
     private String mobileNumber;
-    private String message;
-
 }

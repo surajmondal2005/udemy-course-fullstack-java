@@ -27,4 +27,18 @@ public class DummyController {
 
 
     }
+
+    @GetMapping({"/user/{userId}/posts/{postId}", "/user/{userId}"})
+    public String getUser(@PathVariable(name = "userId") String id,
+                          @PathVariable(required = false) String postId) {
+        return "Searching for user : " + id + " and post : " + postId;
+    }
+
+    @GetMapping({"/user/map/{userId}/posts/{postId}", "/user/map/{userId}"})
+    public String getUserUsingMap(@PathVariable Map<String,String> pathVariables) {
+        return "Searching for user : " + pathVariables.get("userId") + " and post : "
+                + pathVariables.get("postId");
+    }
+
 }
+

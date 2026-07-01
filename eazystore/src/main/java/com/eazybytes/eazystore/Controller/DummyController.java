@@ -2,6 +2,7 @@ package com.eazybytes.eazystore.Controller;
 import com.eazybytes.eazystore.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpHeaders;
 
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,19 @@ public class DummyController {
         return "Hello hi " + userName;
 
 
+    }
+    @GetMapping("/headers")
+    public String readHeaders(@RequestHeader(name = "User-Agent") String userAgent,@RequestHeader(name = "User-Location",required = false) String userLocation){
+        return " Received headers with value " + userAgent + " " + userLocation;
+    }
+    @GetMapping("/multiple-headers")
+    public String readHeaders(@RequestHeader Map<String,String> headers){
+        return headers.toString();
+    }
+    @GetMapping("/http-headers")
+    public String readHeaders(@RequestHeader HttpHeaders headers) {
+        List<String> location= headers.get("User-Location");
+        return "Recevied headers with value : " + headers.toString() + location;
     }
     @GetMapping("/multiple-search")
     public String searchUser(@RequestParam Map<String,String>params){

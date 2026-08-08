@@ -18,13 +18,10 @@ public class ContactController {
     private final IContactService iContactService;
     @PostMapping
     public ResponseEntity<String> saveContact(@RequestBody ContactRequestDto contactRequestDto){
-        boolean isSaved = iContactService.saveContact(contactRequestDto);
-        if(isSaved){
+
             return ResponseEntity.status(HttpStatus.CREATED).body("Request processed successfully");
-        }
-        else{
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred.Please try again or contact dev team");
-        }
+
+
 
     }
 
